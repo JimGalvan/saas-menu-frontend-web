@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000/api/items/';
+const API_URL = 'http://127.0.0.1:8000/menu-items/';
 
 export const MenuItemsService = {
     list: () => axios.get(API_URL),
@@ -9,5 +9,7 @@ export const MenuItemsService = {
     update: (id: string, data: any) => axios.put(`${API_URL}/${id}`, data),
     delete: (id: string) => axios.delete(`${API_URL}/${id}`),
 };
+
+
 
 export default MenuItemsService;

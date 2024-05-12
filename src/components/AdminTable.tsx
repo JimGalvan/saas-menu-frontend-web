@@ -25,6 +25,7 @@ import {
 
 import MenuItem from '../models/MenuItem';
 import useItemList from "../hooks/MenuItems.ts";
+import AddItemDialog from './AddItemDialog/AddItemDialog.tsx';
 
 // @ts-ignore
 const columns: MRT_ColumnDef<MenuItem>[] = [
@@ -33,40 +34,73 @@ const columns: MRT_ColumnDef<MenuItem>[] = [
         header: 'ID',
     },
     {
-        accessorKey: 'itemName',
-        header: 'Item Name',
+        accessorKey: 'image',
+        header: 'Image',
+        Cell: ({cell}) => cell.getValue() ?? 'None',
+    },
+    {
+        accessorKey: 'name',
+        header: 'Name',
+    },
+    {
+        accessorKey: 'description',
+        header: 'Description',
+        Cell: ({cell}) => cell.getValue() ?? 'None',
     },
     {
         accessorKey: 'price',
         header: 'Price',
     },
     {
-        accessorKey: 'restaurantID',
-        header: 'Restaurant ID',
-        // @ts-expect-error TODO: fix this with a better type
-        Cell: ({cell}) => cell.getValue() ?? 'None',
-    },
-    {
-        accessorKey: 'itemGroupID',
-        header: 'Item Group ID',
-        // @ts-expect-error TODO: fix this with a better type
-        Cell: ({cell}) => cell.getValue() ?? 'None',
-    },
-    {
-        accessorKey: 'itemCategoryID',
-        header: 'Item Category ID',
-        // @ts-expect-error TODO: fix this with a better type
-        Cell: ({cell}) => cell.getValue() ?? 'None',
+        accessorKey: 'menu',
+        header: 'Menu',
     },
     {
         accessorKey: 'categoryName',
-        header: 'Category Name',
-        // @ts-expect-error TODO: fix this with a better type
-        Cell: ({cell}) => cell.getValue() ?? 'None',
+        header: 'Category',
     },
 ];
-const AdminTable = () => {
 
+// const columns: MRT_ColumnDef<MenuItem>[] = [
+//     {
+//         accessorKey: 'id',
+//         header: 'ID',
+//     },
+//     {
+//         accessorKey: 'itemName',
+//         header: 'Item Name',
+//     },
+//     {
+//         accessorKey: 'price',
+//         header: 'Price',
+//     },
+//     {
+//         accessorKey: 'restaurantId',
+//         header: 'Restaurant ID',
+//         // @ts-expect-error TODO: fix this with a better type
+//         Cell: ({cell}) => cell.getValue() ?? 'None',
+//     },
+//     {
+//         accessorKey: 'itemGroupId',
+//         header: 'Item Group ID',
+//         // @ts-expect-error TODO: fix this with a better type
+//         Cell: ({cell}) => cell.getValue() ?? 'None',
+//     },
+//     {
+//         accessorKey: 'itemCategoryId',
+//         header: 'Item Category ID',
+//         // @ts-expect-error TODO: fix this with a better type
+//         Cell: ({cell}) => cell.getValue() ?? 'None',
+//     },
+//     {
+//         accessorKey: 'categoryName',
+//         header: 'Category Name',
+//         // @ts-expect-error TODO: fix this with a better type
+//         Cell: ({cell}) => cell.getValue() ?? 'None',
+//     },
+// ];
+const AdminTable = () => {
+    const [dialogOpen, setDialogOpen] = useState<boolean>(false);
     const [rowSelection, setRowSelection] = useState<MRT_RowSelectionState>({});
     const {items, isLoading, error} = useItemList();
     const table = useMaterialReactTable({
@@ -111,7 +145,7 @@ const AdminTable = () => {
                     <Button
                         color="secondary"
                         onClick={() => {
-                            alert('Create New Account');
+                            setDialogOpen(true);
                         }}
                         variant="contained"
                     >
@@ -173,6 +207,7 @@ const AdminTable = () => {
                 </Box>
                 <MRT_ToolbarAlertBanner stackAlertBanner table={table}/>
             </Stack>
+            <AddItemDialog open={dialogOpen} onClose={() => setDialogOpen(false)} />
         </div>
     );
 };

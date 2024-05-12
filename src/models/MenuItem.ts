@@ -1,10 +1,12 @@
 type MenuItem = {
+    url: string;
     id: number;
-    itemName: string;
+    name: string;
+    description: string | null;
     price: string;
-    restaurantID: number;
-    itemGroupID: number;
-    itemCategoryID: number;
+    image: string | null;
+    menu: string;
+    category: string;
     categoryName: string;
 }
 
