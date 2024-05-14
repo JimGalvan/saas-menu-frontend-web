@@ -1,21 +1,21 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import AppContainer from './components/AppContainer';
-import Footer from './components/layout/Footer';
-import Header from './components/layout/Header';
 import AdminTable from './components/AdminTable';
+import {MainLayout} from "./components/layout";
 
 function App() {
   return (
     <Router>
       <div>
-        <Header />
-        <AppContainer>
+        {/*<Header />*/}
+        <MainLayout>
+        {/*<AppContainer>*/}
           <Routes>
             <Route path="/" element={<AdminTable />} />
           </Routes>
-        </AppContainer>
-        <Footer />
+        {/*</AppContainer>*/}
+          </MainLayout>
+          {/*<Footer />*/}
       </div>
     </Router>
   );

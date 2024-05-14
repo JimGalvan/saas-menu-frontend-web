@@ -28,6 +28,9 @@ import useItemList from "../hooks/MenuItems.ts";
 import AddItemDialog from './AddItemDialog/AddItemDialog.tsx';
 
 // @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
 const columns: MRT_ColumnDef<MenuItem>[] = [
     {
         accessorKey: 'id',
@@ -36,6 +39,7 @@ const columns: MRT_ColumnDef<MenuItem>[] = [
     {
         accessorKey: 'image',
         header: 'Image',
+        // @ts-expect-error TODO: fix this with a better type
         Cell: ({cell}) => cell.getValue() ?? 'None',
     },
     {
@@ -45,6 +49,7 @@ const columns: MRT_ColumnDef<MenuItem>[] = [
     {
         accessorKey: 'description',
         header: 'Description',
+        // @ts-expect-error TODO: fix this with a better type
         Cell: ({cell}) => cell.getValue() ?? 'None',
     },
     {
@@ -61,44 +66,6 @@ const columns: MRT_ColumnDef<MenuItem>[] = [
     },
 ];
 
-// const columns: MRT_ColumnDef<MenuItem>[] = [
-//     {
-//         accessorKey: 'id',
-//         header: 'ID',
-//     },
-//     {
-//         accessorKey: 'itemName',
-//         header: 'Item Name',
-//     },
-//     {
-//         accessorKey: 'price',
-//         header: 'Price',
-//     },
-//     {
-//         accessorKey: 'restaurantId',
-//         header: 'Restaurant ID',
-//         // @ts-expect-error TODO: fix this with a better type
-//         Cell: ({cell}) => cell.getValue() ?? 'None',
-//     },
-//     {
-//         accessorKey: 'itemGroupId',
-//         header: 'Item Group ID',
-//         // @ts-expect-error TODO: fix this with a better type
-//         Cell: ({cell}) => cell.getValue() ?? 'None',
-//     },
-//     {
-//         accessorKey: 'itemCategoryId',
-//         header: 'Item Category ID',
-//         // @ts-expect-error TODO: fix this with a better type
-//         Cell: ({cell}) => cell.getValue() ?? 'None',
-//     },
-//     {
-//         accessorKey: 'categoryName',
-//         header: 'Category Name',
-//         // @ts-expect-error TODO: fix this with a better type
-//         Cell: ({cell}) => cell.getValue() ?? 'None',
-//     },
-// ];
 const AdminTable = () => {
     const [dialogOpen, setDialogOpen] = useState<boolean>(false);
     const [rowSelection, setRowSelection] = useState<MRT_RowSelectionState>({});
