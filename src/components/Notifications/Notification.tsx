@@ -2,10 +2,9 @@ import { Transition } from '@headlessui/react';
 import {
   CheckCircleIcon,
   ExclamationCircleIcon,
-  XCircleIcon,
   InformationCircleIcon,
-} from '@heroicons/react/outline';
-import { XIcon } from '@heroicons/react/solid';
+} from '@heroicons/react/24/solid';
+import { XCircleIcon } from '@heroicons/react/24/solid';
 import { Fragment } from 'react';
 
 const icons = {
@@ -57,7 +56,7 @@ export const Notification = ({
                   }}
                 >
                   <span className="sr-only">Close</span>
-                  <XIcon className="h-5 w-5" aria-hidden="true" />
+                  <XCircleIcon className="h-5 w-5" aria-hidden="true" />
                 </button>
               </div>
             </div>

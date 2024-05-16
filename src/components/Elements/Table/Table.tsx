@@ -21,6 +21,7 @@ export const Table = <Entry extends { id: string }>({ data, columns }: TableProp
       </div>
     );
   }
+  // @ts-ignore
   return (
     <div className="flex flex-col">
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -48,7 +49,6 @@ export const Table = <Entry extends { id: string }>({ data, columns }: TableProp
                         key={title + columnIndex}
                         className="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap"
                       >
-                        // @ts-expect-error TODO: fix this with a better type
                         {Cell ? <Cell entry={entry} /> : entry[field]}
                       </td>
                     ))}

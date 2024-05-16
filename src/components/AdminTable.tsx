@@ -39,7 +39,6 @@ const columns: MRT_ColumnDef<MenuItem>[] = [
     {
         accessorKey: 'image',
         header: 'Image',
-        // @ts-expect-error TODO: fix this with a better type
         Cell: ({cell}) => cell.getValue() ?? 'None',
     },
     {
@@ -49,7 +48,6 @@ const columns: MRT_ColumnDef<MenuItem>[] = [
     {
         accessorKey: 'description',
         header: 'Description',
-        // @ts-expect-error TODO: fix this with a better type
         Cell: ({cell}) => cell.getValue() ?? 'None',
     },
     {

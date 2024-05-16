@@ -1,24 +1,12 @@
-import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import AdminTable from './components/AdminTable';
-import {MainLayout} from "./components/layout";
+import { AppProvider } from './providers/app';
+import { AppRoutes } from './routes';
 
 function App() {
-  return (
-    <Router>
-      <div>
-        {/*<Header />*/}
-        <MainLayout>
-        {/*<AppContainer>*/}
-          <Routes>
-            <Route path="/" element={<AdminTable />} />
-          </Routes>
-        {/*</AppContainer>*/}
-          </MainLayout>
-          {/*<Footer />*/}
-      </div>
-    </Router>
-  );
+    return (
+        <AppProvider>
+            <AppRoutes />
+        </AppProvider>
+    );
 }
 
 export default App;

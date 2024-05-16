@@ -1,5 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { XIcon } from '@heroicons/react/outline';
+import { XCircleIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import * as React from 'react';
 import 'intersection-observer';
@@ -64,7 +64,7 @@ export const Drawer = ({
                             onClick={onClose}
                           >
                             <span className="sr-only">Close panel</span>
-                            <XIcon className="h-6 w-6" aria-hidden="true" />
+                            <XCircleIcon className="h-6 w-6" aria-hidden="true" />
                           </button>
                         </div>
                       </div>
