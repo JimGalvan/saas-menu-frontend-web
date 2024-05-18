@@ -39,7 +39,7 @@ export const Drawer = ({
         onClose={onClose}
       >
         <div className="absolute inset-0 overflow-hidden">
-          <Dialog.Overlay className="absolute inset-0" />
+          {/*<Dialog className="absolute inset-0" onClose={onClose} />*/}
           <div className="fixed inset-y-0 right-0 pl-10 max-w-full flex">
             <Transition.Child
               as={React.Fragment}

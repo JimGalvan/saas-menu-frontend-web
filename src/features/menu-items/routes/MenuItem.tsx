@@ -41,14 +41,14 @@ export const MenuItem = () => {
                                      className="w-full h-64 object-cover md:h-full"/>
                             </div>
                             <div className="w-full sm:w-1/2 md:w-2/3 lg:w-3/4 p-4">
-                                <p className="mt-2 text-sm text-gray-500">Category: {menuItemQuery.data.categoryName}</p>
-                                <p className="mt-2 text-sm text-gray-500">Menu: {menuItemQuery.data.menuName}</p>
-                                <p className="mt-2 text-sm text-gray-500">Price: {formatPrice(menuItemQuery.data.price)}</p>
                                 {menuItemQuery.data.description
                                     ? <p
                                         className="mt-2 prose prose-indigo">Description: {menuItemQuery.data.description.trim()}</p>
                                     : <p className="mt-2 prose prose-indigo">No description</p>
                                 }
+                                <p className="mt-2 text-sm text-gray-500">Category: {menuItemQuery.data.categoryName}</p>
+                                <p className="mt-2 text-sm text-gray-500">Menu: {menuItemQuery.data.menuName}</p>
+                                <p className="mt-2 text-sm text-gray-500">Price: {formatPrice(menuItemQuery.data.price)}</p>
                                 <p
                                     className="mt-2 text-xs font-bold">Created
                                     At: {formatDate(menuItemQuery.data.createdAt)}</p>

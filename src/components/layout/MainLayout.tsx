@@ -21,8 +21,8 @@ type SideNavigationItem = {
 const SideNavigation = () => {
   // const { checkAccess } = useAuthorization();
   const navigation = [
-    { name: 'Dashboard', to: '.', icon: HomeIcon },
-    { name: 'Discussions', to: './discussions', icon: FolderIcon },
+    { name: 'Dashboard', to: './menu-items', icon: HomeIcon },
+    { name: 'Menu Items', to: './menu-items', icon: FolderIcon },
     { name: 'Profile', to: './profile', icon: UserIcon },
     { name: 'Settings', to: './settings', icon: UserIcon },
     // checkAccess({ allowedRoles: [ROLES.ADMIN] }) && {

@@ -6,9 +6,9 @@ import {MenuItem} from '../types';
 import defaultImage from '@/assets/menu-item-placeholder.webp';
 
 export const MenuItemsList = () => {
-    const discussionsQuery = useMenuItems();
+    const menuItemsQuery = useMenuItems();
 
-    if (discussionsQuery.isLoading) {
+    if (menuItemsQuery.isLoading) {
         return (
             <div className="w-full h-48 flex justify-center items-center">
                 <Spinner size="lg"/>
@@ -16,11 +16,11 @@ export const MenuItemsList = () => {
         );
     }
 
-    if (!discussionsQuery.data) return null;
+    if (!menuItemsQuery.data) return null;
 
     return (
         <Table<MenuItem>
-            data={discussionsQuery.data}
+            data={menuItemsQuery.data}
             columns={[
                 {
                     title: 'ID',

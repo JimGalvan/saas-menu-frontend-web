@@ -6,7 +6,7 @@ import { ExtractFnReturnType, QueryConfig } from '@/lib/react-query';
 import { MenuItem } from '../types';
 
 export const getMenuItems = (): Promise<MenuItem[]> => {
-    return axios.get('/menu-items/');
+    return axios.get('/menus/1/menu_items/');
 };
 
 type QueryFnType = typeof getMenuItems

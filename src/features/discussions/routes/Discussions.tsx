@@ -1,13 +1,13 @@
 import { ContentLayout } from '@/components/Layout';
 
-import { CreateDiscussion } from '../components/CreateDiscussion';
+import { CreateMenuItem } from '../components/CreateMenuItem.tsx';
 import { DiscussionsList } from '../components/DiscussionsList';
 
 export const Discussions = () => {
   return (
     <ContentLayout title="Discussions">
       <div className="flex justify-end">
-        <CreateDiscussion />
+        <CreateMenuItem />
       </div>
       <div className="mt-4">
         <DiscussionsList />
