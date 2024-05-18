@@ -1,13 +1,16 @@
-import { BaseEntity } from '@/types';
+import {BaseEntity} from '@/types';
 
 export type MenuItem = {
-  url: string;
-  id: number;
-  name: string;
-  description: string | null;
-  price: string;
-  image: string | null;
-  menu: string;
-  category: string;
-  categoryName: string;
+    url: string;
+    id: number;
+    name: string;
+    description: string | null;
+    price: string;
+    image: string | null;
+    menu: string;
+    menuName: string;
+    category: string;
+    categoryName: string;
+    createdAt: string;
+    modifiedAt: string;
 } & BaseEntity;

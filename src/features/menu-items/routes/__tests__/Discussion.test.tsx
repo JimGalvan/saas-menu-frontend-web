@@ -10,7 +10,7 @@ import {
   within,
 } from '@/test/test-utils';
 
-import { Discussion } from '../Discussion';
+import { MenuItem } from '../MenuItem.tsx';
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'), // keep the rest of the exports intact
@@ -25,7 +25,7 @@ const renderDiscussion = async () => {
     discussionId: fakeDiscussion.id,
   }));
 
-  const utils = await render(<Discussion />, {
+  const utils = await render(<MenuItem />, {
     user: fakeUser,
   });
 

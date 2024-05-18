@@ -7,6 +7,16 @@
   pointer-events: none;
 }
 
+.menu-item-description-unavailable-gray-text {
+  color: rgba(128, 128, 128, 0.5); /* adjust the last value as needed */
+}
+
+.fixed-size-image {
+  width: 80px; /* adjust as needed */
+  height: 80px; /* adjust as needed */
+  object-fit: cover; /* this will ensure that your image covers the whole area of the img element without distortion */
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

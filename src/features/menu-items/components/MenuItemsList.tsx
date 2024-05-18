@@ -1,10 +1,9 @@
 import {Table, Spinner, Link} from '@/components/Elements';
-import {formatDate} from '@/utils/format';
-
+import {formatDate, formatPrice} from '@/utils/format';
+import '@/App.css';
 import {useMenuItems} from '../api/getMenuItems.ts';
 import {MenuItem} from '../types';
-
-// import {DeleteDiscussion} from './DeleteDiscussion';
+import defaultImage from '@/assets/menu-item-placeholder.webp';
 
 export const MenuItemsList = () => {
     const discussionsQuery = useMenuItems();
@@ -28,20 +27,30 @@ export const MenuItemsList = () => {
                     field: 'id',
                 },
                 {
+                    title: 'Image',
+                    field: 'image',
+                    Cell({entry: {image}}) {
+                        return <img className="fixed-size-image" src={image || defaultImage} alt="Menu item"/>;
+                    },
+                },
+                {
                     title: 'Name',
                     field: 'name',
                 },
                 {
                     'title': 'Description',
                     field: 'description',
+                    Cell({entry: {description}}) {
+                        return <span
+                            className={description ? '' : 'menu-item-description-unavailable-gray-text'}>{description || 'No description'}</span>;
+                    },
                 },
                 {
                     title: 'Price',
                     field: 'price',
-                },
-                {
-                    title: 'Image',
-                    field: 'image',
+                    Cell({entry: {price}}) {
+                        return <span>{formatPrice(price)}</span>;
+                    },
                 },
                 {
                     title: 'Category',
@@ -58,16 +67,11 @@ export const MenuItemsList = () => {
                     title: '',
                     field: 'id',
                     Cell({entry: {id}}) {
-                        return <Link to={`./${id}`}>View</Link>;
+                        return (
+                            <Link to={`./${id}`}>View</Link>
+                        );
                     },
                 },
-                // {
-                //     title: '',
-                //     field: 'id',
-                //     Cell({entry: {id}}) {
-                //         return <DeleteDiscussion id={id}/>;
-                //     },
-                // },
             ]}
         />
     );
