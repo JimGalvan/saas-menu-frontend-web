@@ -36,7 +36,7 @@ export const protectedRoutes = [
         element: <App/>,
         children: [
             // {path: 'menu-items/*', element: <MenuItemsRoutes/>},
-            {path: 'menu/:menuId/menu-items', element: <MenuItemsRoutes/>,},
+            {path: 'menu/:menuId/menu-items/*', element: <MenuItemsRoutes/>,},
             // {path: 'menu/*/menu-items', element: <MenuItemsRoutes/>},
             // { path: 'menu/*', element: <Dashboard />},
             // { path: 'users', element: <Users /> },

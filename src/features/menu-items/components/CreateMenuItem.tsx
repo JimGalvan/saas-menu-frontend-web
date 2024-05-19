@@ -11,7 +11,7 @@ import {CategoryDropdown} from "@/features/categories/components/CategoryDropdow
 const schema = z.object({
     name: z.string().min(1, 'Required'),
     description: z.string().min(1, 'Required'),
-    price: z.number().min(1, 'Required'),
+    price: z.string().min(1, 'Required'),
     category_id: z.number().min(1, 'Required'),
 });
 

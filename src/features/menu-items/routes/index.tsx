@@ -9,7 +9,7 @@ export const MenuItemsRoutes = () => {
         <Routes>
             {/*<Route path={':menuId'} element={<MenuItems/>}/>*/}
             <Route path="" element={<MenuItems/>}/>
-            <Route path=":menuItemId" element={<MenuItem/>}/>
+            <Route path="/:menuItemId" element={<MenuItem/>}/>
             <Route path="*" element={<Navigate to="."/>}/>
         </Routes>
     );

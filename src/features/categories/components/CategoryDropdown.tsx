@@ -5,7 +5,7 @@ import {SelectField} from "@/components/Form";
 import {FieldError, UseFormRegisterReturn} from "react-hook-form";
 
 type CategoryDropdownProps = {
-    menuId: string | undefined;
+    menuId: string;
     error: FieldError | undefined;
     registration: UseFormRegisterReturn;
 };

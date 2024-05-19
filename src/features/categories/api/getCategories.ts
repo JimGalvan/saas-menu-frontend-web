@@ -10,7 +10,7 @@ export const getCategories = ({menuId}: { menuId: string }): Promise<Category[]>
 type QueryFnType = typeof getCategories;
 
 type UseCategoriesOptions = {
-    menuId: string | undefined;
+    menuId: string;
     config?: QueryConfig<QueryFnType>;
 };
 
