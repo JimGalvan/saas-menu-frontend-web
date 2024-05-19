@@ -5,8 +5,12 @@ import {useMenuItems} from '../api/getMenuItems.ts';
 import {MenuItem} from '../types';
 import defaultImage from '@/assets/menu-item-placeholder.webp';
 
-export const MenuItemsList = () => {
-    const menuItemsQuery = useMenuItems();
+type MenuItemsListProps = {
+    menuId: string;
+};
+
+export const MenuItemsList = ({menuId}: MenuItemsListProps) => {
+    const menuItemsQuery = useMenuItems({menuId});
 
     if (menuItemsQuery.isLoading) {
         return (

@@ -1,18 +1,24 @@
-import { ContentLayout } from '@/components/Layout';
+import {ContentLayout} from '@/components/Layout';
 
-// import { CreateMenuItem } from '../components/CreateMenuItem';
-import { MenuItemsList } from '../components/MenuItemsList.tsx';
-import { CreateMenuItem } from '../components/CreateMenuItem.tsx';
+import {MenuItemsList} from '../components/MenuItemsList.tsx';
+import {useParams} from "react-router-dom";
+// import {CreateMenuItem} from "@/features/menu-items/components/CreateMenuItem.tsx";
+// import {useParams} from "react-router-dom";
+// import {CreateMenuItem} from '../components/CreateMenuItem.tsx';
+// import {useParams} from "react-router-dom";
 
 export const MenuItems = () => {
-  return (
-    <ContentLayout title="Menu Items">
-      <div className="flex justify-end">
-        <CreateMenuItem />
-      </div>
-      <div className="mt-4">
-        <MenuItemsList />
-      </div>
-    </ContentLayout>
-  );
+
+    const {menuId = ''} = useParams<string>();
+
+    return (
+        <ContentLayout title="Menu Items">
+            <div className="flex justify-end">
+                {/*<CreateMenuItem/>*/}
+            </div>
+            <div className="mt-4">
+                <MenuItemsList menuId={menuId}/>
+            </div>
+        </ContentLayout>
+    );
 };

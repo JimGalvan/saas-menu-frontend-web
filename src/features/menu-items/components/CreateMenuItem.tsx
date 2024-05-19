@@ -2,10 +2,11 @@ import {PlusIcon} from '@heroicons/react/20/solid';
 import * as z from 'zod';
 
 import {Button} from '@/components/Elements';
-import {Form, FormDrawer, InputField, SelectField, TextAreaField} from '@/components/Form';
+import {Form, FormDrawer, InputField, TextAreaField} from '@/components/Form';
 // import { Authorization, ROLES } from '@/lib/authorization';
 
 import {CreateMenuItemDTO, useCreateMenuItem} from '../api/createMenuItem.ts';
+import {CategoryDropdown} from "@/features/categories/components/CategoryDropdown.tsx";
 
 const schema = z.object({
     name: z.string().min(1, 'Required'),
@@ -14,7 +15,11 @@ const schema = z.object({
     category_id: z.number().min(1, 'Required'),
 });
 
-export const CreateMenuItem = () => {
+type CreateMenuItemProps = {
+    menuId: string;
+};
+
+export const CreateMenuItem = ({menuId}: CreateMenuItemProps) => {
     const createMenuItemMutation = useCreateMenuItem();
 
     return (
@@ -64,16 +69,10 @@ export const CreateMenuItem = () => {
                             error={formState.errors['price']}
                             registration={register('price')}
                         />
-                        <SelectField
-                            label="Category"
+                        <CategoryDropdown
+                            menuId={menuId}
                             error={formState.errors['category']}
-                            registration={register('category')}
-                            options={[
-                                { value: '1', label: 'Option 1' },
-                                { value: '2', label: 'Option 2' },
-                                // Add more options as needed
-                            ]}
-                        />
+                            registration={register('category')}/>
                     </>
                 )}
             </Form>
