@@ -1,8 +1,8 @@
-import {useCategories} from '../api/getCategories';
 import {Category} from '../types';
-import {Spinner} from "@/components/Elements";
 import {SelectField} from "@/components/Form";
 import {FieldError, UseFormRegisterReturn} from "react-hook-form";
+import {useCategories} from "@/features/categories/api/getCategories.ts";
+import {Spinner} from "@/components/Elements";
 
 type CategoryDropdownProps = {
     menuId: string;
@@ -11,7 +11,7 @@ type CategoryDropdownProps = {
 };
 
 export const CategoryDropdown = ({menuId, error, registration}: CategoryDropdownProps) => {
-    const categoriesQuery = useCategories({menuId});
+    const categoriesQuery = useCategories({menuId: menuId});
 
     if (categoriesQuery.isLoading) {
         return (
@@ -21,29 +21,22 @@ export const CategoryDropdown = ({menuId, error, registration}: CategoryDropdown
         );
     }
 
-    if (!categoriesQuery?.data?.length)
-        return (
-            <div
-                role="list"
-                aria-label="categories"
-                className="bg-white text-gray-500 h-40 flex justify-center items-center flex-col"
-            >
-                <h4>No Comments Found</h4>
-            </div>
-        );
+    const options = [
+        {value: '', label: 'Select Category'},
+        ...(categoriesQuery.data && categoriesQuery.data.length > 0
+            ? categoriesQuery.data.map((category: Category) => ({
+                value: category.url,
+                label: category.name,
+            }))
+            : [{value: '', label: 'No categories'}])
+    ];
 
     return (
         <SelectField
             label="Category"
             error={error}
             registration={registration}
-            options={[
-                {value: '', label: 'Select Category'},
-                ...categoriesQuery.data.map((category: Category) => ({
-                    value: category.id,
-                    label: category.name,
-                })),
-            ]}
+            options={options}
         />
     );
 }

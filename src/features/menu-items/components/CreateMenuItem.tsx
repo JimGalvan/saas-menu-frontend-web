@@ -3,23 +3,22 @@ import * as z from 'zod';
 
 import {Button} from '@/components/Elements';
 import {Form, FormDrawer, InputField, TextAreaField} from '@/components/Form';
-// import { Authorization, ROLES } from '@/lib/authorization';
-
 import {CreateMenuItemDTO, useCreateMenuItem} from '../api/createMenuItem.ts';
 import {CategoryDropdown} from "@/features/categories/components/CategoryDropdown.tsx";
+import {Menu} from "@/features/menus/types";
 
 const schema = z.object({
     name: z.string().min(1, 'Required'),
     description: z.string().min(1, 'Required'),
     price: z.string().min(1, 'Required'),
-    category_id: z.number().min(1, 'Required'),
+    category: z.string().min(1, 'Required'),
 });
 
 type CreateMenuItemProps = {
-    menuId: string;
+    menu: Menu
 };
 
-export const CreateMenuItem = ({menuId}: CreateMenuItemProps) => {
+export const CreateMenuItem = ({menu}: CreateMenuItemProps) => {
     const createMenuItemMutation = useCreateMenuItem();
 
     return (
@@ -35,7 +34,7 @@ export const CreateMenuItem = ({menuId}: CreateMenuItemProps) => {
             submitButton={
                 <Button
                     form="create-menu-item"
-                    type="submit"
+                    type={'submit' as any}
                     size="sm"
                     isLoading={createMenuItemMutation.isLoading}
                 >
@@ -46,9 +45,12 @@ export const CreateMenuItem = ({menuId}: CreateMenuItemProps) => {
             <Form<CreateMenuItemDTO['data'], typeof schema>
                 id="create-menu-item"
                 onSubmit={async (values: any) => {
+                    if (values.description === null || values.description === undefined || values.description === "") {
+                        delete values.description;
+                    }
                     await createMenuItemMutation.mutateAsync({data: values});
                 }}
-                schema={schema}
+                // schema={schema}
             >
                 {({register, formState}) => (
                     <>
@@ -70,9 +72,10 @@ export const CreateMenuItem = ({menuId}: CreateMenuItemProps) => {
                             registration={register('price')}
                         />
                         <CategoryDropdown
-                            menuId={menuId}
+                            menuId={menu.id}
                             error={formState.errors['category']}
                             registration={register('category')}/>
+                        <input type="hidden" {...register('menu')} value={menu.url}/>
                     </>
                 )}
             </Form>

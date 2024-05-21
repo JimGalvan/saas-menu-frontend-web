@@ -10,34 +10,36 @@ export type CreateMenuItemDTO = {
     data: {
         name: string;
         description: string;
-        price: number;
-        category: number;
+        price: string;
+        image: string;
+        menu: string;
+        category: string;
     };
 };
 
 export const createMenuItem = ({data}: CreateMenuItemDTO): Promise<MenuItem> => {
-    return axios.post(`/discussions`, data);
+    return axios.post(`/menu-items/`, data);
 };
 
-type UseCreateDiscussionOptions = {
+type UseCreateMenuItemOptions = {
     config?: MutationConfig<typeof createMenuItem>;
 };
 
-export const useCreateMenuItem = ({config}: UseCreateDiscussionOptions = {}) => {
+export const useCreateMenuItem = ({config}: UseCreateMenuItemOptions = {}) => {
     const {addNotification} = useNotificationStore();
     return useMutation({
-        onMutate: async (newDiscussion) => {
+        onMutate: async (newMenuItem) => {
             await queryClient.cancelQueries('menu-items');
 
-            const previousDiscussions = queryClient.getQueryData<MenuItem[]>('menu-items');
+            const previousMenuItems = queryClient.getQueryData<MenuItem[]>('menu-items');
 
-            queryClient.setQueryData('menu-items', [...(previousDiscussions || []), newDiscussion.data]);
+            queryClient.setQueryData('menu-items', [...(previousMenuItems || []), newMenuItem.data]);
 
-            return {previousDiscussions};
+            return {previousMenuItems: previousMenuItems};
         },
         onError: (_, __, context: any) => {
-            if (context?.previousDiscussions) {
-                queryClient.setQueryData('menu-items', context.previousDiscussions);
+            if (context?.previousMenuItems) {
+                queryClient.setQueryData('menu-items', context.previousMenuItems);
             }
         },
         onSuccess: () => {
