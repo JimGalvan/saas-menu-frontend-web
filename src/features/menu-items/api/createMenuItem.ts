@@ -1,4 +1,4 @@
-import {useMutation} from 'react-query';
+import {useMutation} from '@tanstack/react-query';
 
 import {axios} from '@/lib/axios';
 import {MutationConfig, queryClient} from '@/lib/react-query';
@@ -28,22 +28,22 @@ type UseCreateMenuItemOptions = {
 export const useCreateMenuItem = ({config}: UseCreateMenuItemOptions = {}) => {
     const {addNotification} = useNotificationStore();
     return useMutation({
-        onMutate: async (newMenuItem) => {
-            await queryClient.cancelQueries('menu-items');
+        onMutate: async (newMenuItem: CreateMenuItemDTO) => {
+            await queryClient.cancelQueries({queryKey: ['menu-items']});
 
-            const previousMenuItems = queryClient.getQueryData<MenuItem[]>('menu-items');
+            const previousMenuItems = queryClient.getQueryData<MenuItem[]>(['menu-items']);
 
-            queryClient.setQueryData('menu-items', [...(previousMenuItems || []), newMenuItem.data]);
+            queryClient.setQueryData(['menu-items'], [...(previousMenuItems || []), newMenuItem.data]);
 
             return {previousMenuItems: previousMenuItems};
         },
         onError: (_, __, context: any) => {
             if (context?.previousMenuItems) {
-                queryClient.setQueryData('menu-items', context.previousMenuItems);
+                queryClient.setQueryData(['menu-items'], context.previousMenuItems);
             }
         },
         onSuccess: () => {
-            queryClient.invalidateQueries('menu-items');
+            queryClient.invalidateQueries({queryKey: ['menu-items']}).then(result => console.log(result));
             addNotification({
                 type: 'success',
                 title: 'Menu Item Created',

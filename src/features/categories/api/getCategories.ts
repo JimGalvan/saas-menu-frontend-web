@@ -1,7 +1,7 @@
 import {axios} from '@/lib/axios';
 import {Category} from '../types';
 import {ExtractFnReturnType, QueryConfig} from "@/lib/react-query.ts";
-import {useQuery} from "react-query";
+import {useQuery} from '@tanstack/react-query';
 
 export const getCategories = ({menuId}: { menuId: string }): Promise<Category[]> => {
     return axios.get(`/menus/${menuId}/categories/`);
