@@ -1,10 +1,12 @@
 import {ContentLayout} from '@/components/Layout';
 
-import {MenuItemsList} from '../components/MenuItemsList.tsx';
+// import {MenuItemsList} from '../components/MenuItemsList.tsx';
 import {useParams} from "react-router-dom";
 import {CreateMenuItem} from "@/features/menu-items/components/CreateMenuItem.tsx";
 import {useMenu} from "@/features/menus/api/getMenu.ts";
 import {Spinner} from "@/components/Elements";
+// import AdminTableQuery from "@/components/AdminTableQuery.tsx";
+import MantineAdminTable from "@/components/MantineAdminTable.tsx";
 // import {CreateMenuItem} from "@/features/menu-items/components/CreateMenuItem.tsx";
 // import {useParams} from "react-router-dom";
 // import {CreateMenuItem} from '../components/CreateMenuItem.tsx';
@@ -30,7 +32,9 @@ export const MenuItems = () => {
                 <CreateMenuItem menu={useMenuQuery.data}/>
             </div>
             <div className="mt-4">
-                <MenuItemsList menuId={menuId}/>
+                {/*<AdminTableQuery menuId={menuId} />*/}
+                <MantineAdminTable menuId={menuId}/>
+                {/*<MenuItemsList menuId={menuId}/>*/}
             </div>
         </ContentLayout>
     );

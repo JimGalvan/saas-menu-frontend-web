@@ -31,6 +31,7 @@ import AddItemDialog from './AddItemDialog/AddItemDialog.tsx';
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
+// @ts-ignore
 const columns: MRT_ColumnDef<MenuItem>[] = [
     {
         accessorKey: 'id',
@@ -39,6 +40,7 @@ const columns: MRT_ColumnDef<MenuItem>[] = [
     {
         accessorKey: 'image',
         header: 'Image',
+        // @ts-ignore
         Cell: ({cell}) => cell.getValue() ?? 'None',
     },
     {
@@ -48,6 +50,7 @@ const columns: MRT_ColumnDef<MenuItem>[] = [
     {
         accessorKey: 'description',
         header: 'Description',
+        // @ts-ignore
         Cell: ({cell}) => cell.getValue() ?? 'None',
     },
     {
