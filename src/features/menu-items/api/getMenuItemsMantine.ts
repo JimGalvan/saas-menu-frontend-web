@@ -35,7 +35,7 @@ type UseMenuItemsOptions = CommonOptions & {
 };
 
 function getFetchURL(menuId: string) {
-    return new URL(`${API_URL}/menus/${menuId}/menu_items/?page=1`);
+    return new URL(`${API_URL}/menus/${menuId}/menu_items/`);
 }
 
 export const getMenuItems = ({
@@ -46,31 +46,19 @@ export const getMenuItems = ({
                                  globalFilter,
                                  sorting,
                              }: Params): Promise<UseMenuItemsResponse> => {
+
     const fetchURL = getFetchURL(menuId);
 
-    if (pagination) {
-        fetchURL.searchParams.set(
-            'page',
-            `${pagination.pageIndex}`,
-        );
-    }
-    if (columnFilters) {
-        fetchURL.searchParams.set('filters', JSON.stringify(columnFilters));
-    }
-    if (columnFilterFns) {
-        fetchURL.searchParams.set(
-            'filterModes',
-            JSON.stringify(columnFilterFns),
-        );
-    }
-    if (globalFilter) {
-        fetchURL.searchParams.set('globalFilter', globalFilter);
-    }
-    if (sorting) {
-        fetchURL.searchParams.set('sorting', JSON.stringify(sorting));
-    }
+    fetchURL.searchParams.set(
+        'start',
+        `${pagination.pageIndex * pagination.pageSize}`,
+    );
+    fetchURL.searchParams.set('size', `${pagination.pageSize}`);
+    fetchURL.searchParams.set('filters', JSON.stringify(columnFilters ?? []));
+    fetchURL.searchParams.set('filterModes', JSON.stringify(columnFilterFns ?? {}),);
+    fetchURL.searchParams.set('globalFilter', globalFilter ?? '');
+    fetchURL.searchParams.set('sorting', JSON.stringify(sorting ?? []));
 
-    console.log("fetchURL: " + fetchURL.href)
     return axios.get(fetchURL.href);
 };
 
@@ -89,7 +77,7 @@ export const useMenuItems = ({
 
     const query = useQuery<UseMenuItemsResponse>({
         ...config,
-        queryKey: ['menu-items', fetchURL.href],
+        queryKey: ['menu-items', menuId, pagination, columnFilterFns, columnFilters, globalFilter, sorting],
         queryFn: () => getMenuItems(
             {
                 menuId,

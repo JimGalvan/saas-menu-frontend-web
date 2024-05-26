@@ -1,183 +1,153 @@
-import {useState} from 'react';
-
+import {useMemo, useState} from 'react';
 import {
-    MRT_RowSelectionState,
-    MRT_GlobalFilterTextField,
-    MRT_TableBodyCellValue,
-    MRT_TablePagination,
-    MRT_ToolbarAlertBanner,
-    flexRender,
+    MantineReactTable,
     type MRT_ColumnDef,
-    useMaterialReactTable,
-} from 'material-react-table';
-import {
-    Box,
-    Stack,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Button
-} from '@mui/material';
-// import FilterDropdown from './FilterDropdown';
+    type MRT_ColumnFilterFnsState,
+    type MRT_ColumnFiltersState,
+    type MRT_PaginationState,
+    type MRT_SortingState,
+    useMantineReactTable,
+} from 'mantine-react-table';
+import {ActionIcon, Tooltip} from '@mantine/core';
+import {IconEdit, IconRefresh, IconTrash} from '@tabler/icons-react';
 
-import MenuItem from '../models/MenuItem';
-import useItemList from "../hooks/MenuItems.ts";
-import AddItemDialog from './AddItemDialog/AddItemDialog.tsx';
+import MenuItem from "@/models/MenuItem.ts";
+import defaultImage from "@/assets/menu-item-placeholder.webp";
+import '@/App.css';
+import {useMenuItems} from "@/features/menu-items/api/getMenuItemsMantine.ts";
 
-// @ts-ignore
-// @ts-ignore
-// @ts-ignore
-// @ts-ignore
-// @ts-ignore
-const columns: MRT_ColumnDef<MenuItem>[] = [
-    {
-        accessorKey: 'id',
-        header: 'ID',
-    },
-    {
-        accessorKey: 'image',
-        header: 'Image',
-        // @ts-ignore
-        Cell: ({cell}) => cell.getValue() ?? 'None',
-    },
-    {
-        accessorKey: 'name',
-        header: 'Name',
-    },
-    {
-        accessorKey: 'description',
-        header: 'Description',
-        // @ts-ignore
-        Cell: ({cell}) => cell.getValue() ?? 'None',
-    },
-    {
-        accessorKey: 'price',
-        header: 'Price',
-    },
-    {
-        accessorKey: 'menu',
-        header: 'Menu',
-    },
-    {
-        accessorKey: 'categoryName',
-        header: 'Category',
-    },
-];
-
-const AdminTable = () => {
-    const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-    const [rowSelection, setRowSelection] = useState<MRT_RowSelectionState>({});
-    const {items, isLoading, error} = useItemList();
-    const table = useMaterialReactTable({
-        columns,
-        data: items ?? [],
-        enableColumnFilters: true,
-        enableRowSelection: true,
-        muiFilterTextFieldProps: ({column}) => ({
-            label: `Filter by ${column.columnDef.header}`,
-        }),
-        onRowSelectionChange: setRowSelection,
-        state: {rowSelection},
-        initialState: {
-            pagination: {pageSize: 10, pageIndex: 0},
-            showColumnFilters: true,
-            showGlobalFilter: true,
-            sorting: [
-                {
-                    id: 'categoryName', //sort by age by default on page load
-                    desc: false,
-                },
-            ],
-        },
-        muiPaginationProps: {
-            rowsPerPageOptions: [10, 15, 20],
-            variant: 'outlined',
-        },
-        paginationDisplayMode: 'pages',
-    });
-
-    const isSomeRowsSelected = () => {
-        return Object.values(rowSelection).length > 0;
-    }
-
-    return (
-        <div>
-            {isLoading && <div>Loading...</div>}
-            {error && <div>Error: {error.message}</div>}
-            {}
-            <Stack sx={{m: '2rem 0'}} style={{border: '1px solid #9e9e9e', padding: '10px'}}>
-                <Box display="flex" gap='0.5rem' p='4px'>
-                    <Button
-                        color="secondary"
-                        onClick={() => {
-                            setDialogOpen(true);
-                        }}
-                        variant="contained"
-                    >
-                        Create Entity
-                    </Button>
-                    <Button
-                        color="error"
-                        disabled={!isSomeRowsSelected()}
-                        onClick={() => {
-                            alert('Delete Selected Accounts');
-                        }}
-                        variant="contained"
-                    >
-                        Delete
-                    </Button>
-                    {/* <FilterDropdown tableInstance={table} /> */}
-                    <Box flexGrow={1}/> {/* Invisible spacer */}
-                    <MRT_GlobalFilterTextField table={table}/>
-                </Box>
-                <TableContainer>
-                    <Table>
-                        <TableHead>
-                            {table.getHeaderGroups().map((headerGroup) => (
-                                <TableRow key={headerGroup.id}>
-                                    {headerGroup.headers.map((header) => (
-                                        <TableCell align="center" variant="head" key={header.id}>
-                                            {header.isPlaceholder
-                                                ? null
-                                                : flexRender(
-                                                    header.column.columnDef.Header ?? header.column.columnDef.header,
-                                                    header.getContext(),
-                                                )}
-                                        </TableCell>
-                                    ))}
-                                </TableRow>
-                            ))}
-                        </TableHead>
-                        <TableBody>
-                            {table.getRowModel().rows.map((row) => (
-                                <TableRow key={row.id} selected={row.getIsSelected()}>
-                                    {row.getVisibleCells().map((cell) => (
-                                        <TableCell align="center" variant="body" key={cell.id}>
-                                            <MRT_TableBodyCellValue cell={cell} table={table}/>
-                                        </TableCell>
-                                    ))}
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'flex-end',
-                        alignItems: 'center',
-                    }}
-                >
-                    <MRT_TablePagination table={table}/>
-                </Box>
-                <MRT_ToolbarAlertBanner stackAlertBanner table={table}/>
-            </Stack>
-            <AddItemDialog open={dialogOpen} onClose={() => setDialogOpen(false)} />
-        </div>
-    );
+type MantineAdminTableProps = {
+    menuId: string;
 };
+
+const AdminTable = ({menuId}: MantineAdminTableProps) => {
+        const columns = useMemo<MRT_ColumnDef<MenuItem>[]>(
+            () => [
+                {
+                    header: 'Image',
+                    accessorKey: 'image',
+                    Cell({cell}) {
+                        // @ts-ignore
+                        return <img className="fixed-size-image" src={cell.image || defaultImage} alt="Menu item"/>;
+                    },
+                },
+                {
+                    header: 'Name',
+                    accessorKey: 'name',
+                },
+                {
+                    header: 'Description',
+                    accessorKey: 'description',
+                },
+                {
+                    header: 'Price',
+                    accessorKey: 'price',
+                },
+                {
+                    header: 'Category',
+                    accessorKey: 'categoryName',
+                },
+                {
+                    header: 'Actions',
+                    accessorKey: 'id',
+                    Cell({}) {
+                        return (
+                            <div className="flex space-x-2">
+                                <Tooltip label="Edit">
+                                    <ActionIcon>
+                                        <IconEdit/>
+                                    </ActionIcon>
+                                </Tooltip>
+                                <Tooltip label="Delete">
+                                    <ActionIcon>
+                                        <IconTrash/>
+                                    </ActionIcon>
+                                </Tooltip>
+                            </div>
+                        );
+                    },
+                }
+            ],
+            [],
+        );
+
+        //Manage MRT state that we want to pass to our API
+        const [columnFilters, setColumnFilters] = useState<MRT_ColumnFiltersState>(
+            [],
+        );
+        const [columnFilterFns, setColumnFilterFns] = //filter modes
+            useState<MRT_ColumnFilterFnsState>(
+                Object.fromEntries(
+                    columns.map(({accessorKey}) => [accessorKey, 'contains']),
+                ),
+            ); //default to "contains" for all columns
+        const [globalFilter, setGlobalFilter] = useState('');
+        const [sorting, setSorting] = useState<MRT_SortingState>([]);
+        const [pagination, setPagination] = useState<MRT_PaginationState>({
+            pageIndex: 0,
+            pageSize: 10,
+        });
+
+        //call our custom react-query hook
+        const {data, isError, isFetching, isLoading, refetch} = useMenuItems({
+                    menuId,
+                    columnFilterFns,
+                    columnFilters,
+                    globalFilter,
+                    pagination,
+                    sorting,
+                }
+            )
+        ;
+
+        const fetchedMenuItems = data?.results ?? [];
+        const totalRowCount = data?.count ?? 0;
+
+        console.log("fetchedMenuItems: " + fetchedMenuItems)
+        console.log("totalRowCount: " + totalRowCount)
+
+        const table = useMantineReactTable({
+            columns,
+            data: fetchedMenuItems,
+            enableColumnFilterModes: true,
+            columnFilterModeOptions: ['contains', 'startsWith', 'endsWith'],
+            initialState: {showColumnFilters: false},
+            manualFiltering: true,
+            manualPagination: true,
+            manualSorting: true,
+            mantineToolbarAlertBannerProps: isError
+                ? {
+                    color: 'red',
+                    children: 'Error loading data',
+                }
+                : undefined,
+            onColumnFilterFnsChange: setColumnFilterFns,
+            onColumnFiltersChange: setColumnFilters,
+            onGlobalFilterChange: setGlobalFilter,
+            onPaginationChange: setPagination,
+            onSortingChange: setSorting,
+            renderTopToolbarCustomActions: () => (
+                <Tooltip label="Refresh Data">
+                    <ActionIcon onClick={() => refetch()}>
+                        <IconRefresh/>
+                    </ActionIcon>
+                </Tooltip>
+            ),
+            rowCount: totalRowCount,
+            state: {
+                columnFilterFns,
+                columnFilters,
+                globalFilter,
+                isLoading,
+                pagination,
+                showAlertBanner: isError,
+                showProgressBars: isFetching,
+                sorting,
+            },
+        });
+
+        return <MantineReactTable table={table}/>;
+    }
+;
 
 export default AdminTable;

@@ -14,7 +14,6 @@ root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <App />
-        {/* TODO: renable: <ReactQueryDevtools initialIsOpen={false} />*/}
     </QueryClientProvider>
    </React.StrictMode>
 );

@@ -6,7 +6,7 @@ import {CreateMenuItem} from "@/features/menu-items/components/CreateMenuItem.ts
 import {useMenu} from "@/features/menus/api/getMenu.ts";
 import {Spinner} from "@/components/Elements";
 // import AdminTableQuery from "@/components/AdminTableQuery.tsx";
-import MantineAdminTable from "@/components/MantineAdminTable.tsx";
+import AdminTable from "@/components/AdminTable.tsx";
 // import {CreateMenuItem} from "@/features/menu-items/components/CreateMenuItem.tsx";
 // import {useParams} from "react-router-dom";
 // import {CreateMenuItem} from '../components/CreateMenuItem.tsx';
@@ -33,7 +33,7 @@ export const MenuItems = () => {
             </div>
             <div className="mt-4">
                 {/*<AdminTableQuery menuId={menuId} />*/}
-                <MantineAdminTable menuId={menuId}/>
+                <AdminTable menuId={menuId}/>
                 {/*<MenuItemsList menuId={menuId}/>*/}
             </div>
         </ContentLayout>
