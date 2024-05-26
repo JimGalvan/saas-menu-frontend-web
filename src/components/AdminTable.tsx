@@ -15,6 +15,7 @@ import MenuItem from "@/models/MenuItem.ts";
 import defaultImage from "@/assets/menu-item-placeholder.webp";
 import '@/App.css';
 import {useMenuItems} from "@/features/menu-items/api/getMenuItemsMantine.ts";
+import {Link} from "react-router-dom";
 
 type MantineAdminTableProps = {
     menuId: string;
@@ -38,6 +39,10 @@ const AdminTable = ({menuId}: MantineAdminTableProps) => {
                 {
                     header: 'Description',
                     accessorKey: 'description',
+                    // Cell({cell}) {
+                    //     // @ts-ignore
+                    //     return <div>{cell.value ? cell.value : "No description"}</div>;
+                    // }
                 },
                 {
                     header: 'Price',
@@ -50,12 +55,14 @@ const AdminTable = ({menuId}: MantineAdminTableProps) => {
                 {
                     header: 'Actions',
                     accessorKey: 'id',
-                    Cell({}) {
+                    Cell({cell}) {
                         return (
                             <div className="flex space-x-2">
                                 <Tooltip label="Edit">
                                     <ActionIcon>
-                                        <IconEdit/>
+                                        <Link to={`./${cell.getValue()}/`}>
+                                            <IconEdit/>
+                                        </Link>
                                     </ActionIcon>
                                 </Tooltip>
                                 <Tooltip label="Delete">

@@ -35,12 +35,12 @@ type UseMenuItemsOptions = CommonOptions & {
 };
 
 function getFetchURL(menuId: string) {
-    return new URL(`${API_URL}/menus/${menuId}/menu_items/`);
+    return new URL(`${API_URL}/menus/${menuId}/menu_items/?ordering=-createdAt`);
 }
 
 export const getMenuItems = ({
                                  menuId,
-                                 pagination,
+                                 pagination = {pageIndex: 0, pageSize: 10},
                                  columnFilterFns,
                                  columnFilters,
                                  globalFilter,
@@ -73,7 +73,6 @@ export const useMenuItems = ({
                                  sorting,
                                  config
                              }: UseMenuItemsOptions) => {
-    const fetchURL = getFetchURL(menuId);
 
     const query = useQuery<UseMenuItemsResponse>({
         ...config,

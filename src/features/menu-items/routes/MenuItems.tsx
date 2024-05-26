@@ -1,16 +1,9 @@
 import {ContentLayout} from '@/components/Layout';
-
-// import {MenuItemsList} from '../components/MenuItemsList.tsx';
 import {useParams} from "react-router-dom";
 import {CreateMenuItem} from "@/features/menu-items/components/CreateMenuItem.tsx";
 import {useMenu} from "@/features/menus/api/getMenu.ts";
 import {Spinner} from "@/components/Elements";
-// import AdminTableQuery from "@/components/AdminTableQuery.tsx";
 import AdminTable from "@/components/AdminTable.tsx";
-// import {CreateMenuItem} from "@/features/menu-items/components/CreateMenuItem.tsx";
-// import {useParams} from "react-router-dom";
-// import {CreateMenuItem} from '../components/CreateMenuItem.tsx';
-// import {useParams} from "react-router-dom";
 
 export const MenuItems = () => {
     const {menuId = ''} = useParams<string>();
@@ -32,9 +25,7 @@ export const MenuItems = () => {
                 <CreateMenuItem menu={useMenuQuery.data}/>
             </div>
             <div className="mt-4">
-                {/*<AdminTableQuery menuId={menuId} />*/}
                 <AdminTable menuId={menuId}/>
-                {/*<MenuItemsList menuId={menuId}/>*/}
             </div>
         </ContentLayout>
     );
