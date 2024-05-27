@@ -26,6 +26,12 @@ const AdminTable = ({menuId}: MantineAdminTableProps) => {
         const columns = useMemo<MRT_ColumnDef<MenuItem>[]>(
             () => [
                 {
+                    header: '#',
+                    Cell({row}) {
+                        return <span>{row.index + 1}</span>;
+                    },
+                },
+                {
                     header: 'Image',
                     accessorKey: 'image',
                     Cell({cell}) {

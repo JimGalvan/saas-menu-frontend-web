@@ -5,11 +5,11 @@ import {Button, ConfirmationDialog} from '@/components/Elements';
 import {useDeleteMenuItem} from '../api/deleteMenuItem.ts';
 
 type DeleteMenuItemProps = {
-    id: string;
+    id: number;
 };
 
 export const DeleteMenuItem = ({id}: DeleteMenuItemProps) => {
-    const deleteMenuItemMutation = useDeleteMenuItem({menuItemId: id});
+    const deleteMenuItemMutation = useDeleteMenuItem({});
 
     return (
         <ConfirmationDialog
