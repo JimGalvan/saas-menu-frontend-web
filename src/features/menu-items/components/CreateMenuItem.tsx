@@ -36,7 +36,7 @@ export const CreateMenuItem = ({menu}: CreateMenuItemProps) => {
                     form="create-menu-item"
                     type={'submit' as any}
                     size="sm"
-                    isLoading={createMenuItemMutation.isLoading}
+                    isLoading={createMenuItemMutation.isPending}
                 >
                     Submit
                 </Button>

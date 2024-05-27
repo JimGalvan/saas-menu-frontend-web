@@ -1,4 +1,4 @@
-import {Table, Spinner, Link} from '@/components/Elements';
+import {Link, Spinner, Table} from '@/components/Elements';
 import {formatDate, formatPrice} from '@/utils/format';
 import '@/App.css';
 import {useMenuItems} from '../api/getMenuItems.ts';
@@ -22,8 +22,10 @@ export const MenuItemsList = ({menuId}: MenuItemsListProps) => {
 
     if (!menuItemsQuery.data) return null;
 
+    // @ts-ignore
     return (
         <Table<MenuItem>
+            // @ts-ignore
             data={menuItemsQuery.data}
             columns={[
                 {

@@ -9,13 +9,14 @@ import {
     useMantineReactTable,
 } from 'mantine-react-table';
 import {ActionIcon, Tooltip} from '@mantine/core';
-import {IconEdit, IconRefresh, IconTrash} from '@tabler/icons-react';
+import {IconEdit, IconRefresh} from '@tabler/icons-react';
 
-import MenuItem from "@/models/MenuItem.ts";
 import defaultImage from "@/assets/menu-item-placeholder.webp";
 import '@/App.css';
-import {useMenuItems} from "@/features/menu-items/api/getMenuItemsMantine.ts";
+import {useMenuItems} from "@/features/menu-items/api/getMenuItems.ts";
 import {Link} from "react-router-dom";
+import {MenuItem} from "@/features/menu-items";
+import {DeleteMenuItem} from "@/features/menu-items/components/DeleteMenuItem.tsx";
 
 type MantineAdminTableProps = {
     menuId: string;
@@ -39,10 +40,10 @@ const AdminTable = ({menuId}: MantineAdminTableProps) => {
                 {
                     header: 'Description',
                     accessorKey: 'description',
-                    // Cell({cell}) {
-                    //     // @ts-ignore
-                    //     return <div>{cell.value ? cell.value : "No description"}</div>;
-                    // }
+                    Cell({cell}) {
+                        // @ts-ignore todo fix this
+                        return <span className={cell.getValue() ? '' : 'menu-item-description-unavailable-gray-text'}>{cell.getValue() || 'No description'}</span>;
+                    }
                 },
                 {
                     header: 'Price',
@@ -67,7 +68,7 @@ const AdminTable = ({menuId}: MantineAdminTableProps) => {
                                 </Tooltip>
                                 <Tooltip label="Delete">
                                     <ActionIcon>
-                                        <IconTrash/>
+                                        <DeleteMenuItem id={cell.row.original.id}/>
                                     </ActionIcon>
                                 </Tooltip>
                             </div>
