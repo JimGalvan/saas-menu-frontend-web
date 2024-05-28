@@ -5,7 +5,7 @@ import {MutationConfig, queryClient} from '@/lib/react-query';
 import {useNotificationStore} from '@/stores/notifications';
 import {MenuItem} from "@/features/menu-items";
 
-export const deleteMenuItem = ({menuItemId}: { menuItemId: number }): Promise<MenuItem> => {
+export const deleteMenuItem = ({menuItemId}: { menuItemId: string }): Promise<MenuItem> => {
     return axios.delete(`/menu-items/${menuItemId}`);
 };
 
@@ -17,13 +17,13 @@ type UseDeleteMenuItemOptions = {
 export const useDeleteMenuItem = ({config}: UseDeleteMenuItemOptions) => {
     const {addNotification} = useNotificationStore();
     return useMutation({
-        onMutate: async (deleteMenuItem: { menuItemId: number; }) => {
+        onMutate: async (deleteMenuItem: { menuItemId: string; }) => {
             await queryClient.cancelQueries({queryKey: ['menu-items']});
 
             const previousMenuItems = queryClient.getQueryData<MenuItem[]>(['menu-items']) as MenuItem[];
 
             queryClient.setQueryData(['menu-items'], previousMenuItems?.filter((menuItem: {
-                id: number;
+                id: string;
             }) => menuItem.id !== deleteMenuItem.menuItemId));
 
             return {previousMenuItems: previousMenuItems};

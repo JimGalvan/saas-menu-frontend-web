@@ -17,16 +17,18 @@ import {useMenuItems} from "@/features/menu-items/api/getMenuItems.ts";
 import {Link} from "react-router-dom";
 import {MenuItem} from "@/features/menu-items";
 import {DeleteMenuItem} from "@/features/menu-items/components/DeleteMenuItem.tsx";
+import {formatPrice} from "@/utils/format.ts";
 
 type MantineAdminTableProps = {
     menuId: string;
 };
 
-const AdminTable = ({menuId}: MantineAdminTableProps) => {
+const MenuItemList = ({menuId}: MantineAdminTableProps) => {
         const columns = useMemo<MRT_ColumnDef<MenuItem>[]>(
             () => [
                 {
                     header: '#',
+                    size: 50,
                     Cell({row}) {
                         return <span>{row.index + 1}</span>;
                     },
@@ -54,6 +56,10 @@ const AdminTable = ({menuId}: MantineAdminTableProps) => {
                 {
                     header: 'Price',
                     accessorKey: 'price',
+                    Cell({cell}) {
+                        // @ts-ignore todo fix this
+                        return <span>{formatPrice(cell.getValue())}</span>;
+                    }
                 },
                 {
                     header: 'Category',
@@ -164,4 +170,4 @@ const AdminTable = ({menuId}: MantineAdminTableProps) => {
     }
 ;
 
-export default AdminTable;
+export default MenuItemList;

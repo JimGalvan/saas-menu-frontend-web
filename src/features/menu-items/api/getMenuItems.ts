@@ -14,7 +14,7 @@ import {API_URL} from "@/config";
 
 type UseMenuItemsResponse = {
     results: Array<MenuItem>;
-    count: number;
+    count: string;
     next: string | null;
     previous: string | null;
 };

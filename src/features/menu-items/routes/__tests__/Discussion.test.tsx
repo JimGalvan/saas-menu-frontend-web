@@ -10,7 +10,7 @@ import {
   within,
 } from '@/test/test-utils';
 
-import { MenuItem } from '../MenuItem.tsx';
+import { MenuItem } from '../UpdateMenuItem.tsx';
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'), // keep the rest of the exports intact

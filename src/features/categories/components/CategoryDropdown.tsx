@@ -5,7 +5,7 @@ import {useCategories} from "@/features/categories/api/getCategories.ts";
 import {Spinner} from "@/components/Elements";
 
 type CategoryDropdownProps = {
-    menuId: string;
+    menuId: number;
     error: FieldError | undefined;
     registration: UseFormRegisterReturn;
 };

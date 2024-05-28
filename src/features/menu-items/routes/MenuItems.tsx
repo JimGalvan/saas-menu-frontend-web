@@ -3,7 +3,7 @@ import {useParams} from "react-router-dom";
 import {CreateMenuItem} from "@/features/menu-items/components/CreateMenuItem.tsx";
 import {useMenu} from "@/features/menus/api/getMenu.ts";
 import {Spinner} from "@/components/Elements";
-import AdminTable from "@/features/menu-items/components/AdminTable.tsx";
+import MenuItemList from "@/features/menu-items/components/MenuItemList.tsx";
 
 export const MenuItems = () => {
     const {menuId = ''} = useParams<string>();
@@ -25,7 +25,7 @@ export const MenuItems = () => {
                 <CreateMenuItem menu={useMenuQuery.data}/>
             </div>
             <div className="mt-4">
-                <AdminTable menuId={menuId}/>
+                <MenuItemList menuId={menuId}/>
             </div>
         </ContentLayout>
     );
