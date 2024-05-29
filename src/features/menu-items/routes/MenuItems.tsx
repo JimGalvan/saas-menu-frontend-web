@@ -25,7 +25,7 @@ export const MenuItems = () => {
                 <CreateMenuItem menu={useMenuQuery.data}/>
             </div>
             <div className="mt-4">
-                <MenuItemList menuId={menuId}/>
+                <MenuItemList menuId={menuId} menu={useMenuQuery.data}/>
             </div>
         </ContentLayout>
     );

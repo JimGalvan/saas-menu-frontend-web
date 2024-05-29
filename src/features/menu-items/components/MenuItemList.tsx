@@ -9,21 +9,23 @@ import {
     useMantineReactTable,
 } from 'mantine-react-table';
 import {ActionIcon, Tooltip} from '@mantine/core';
-import {IconEdit, IconRefresh} from '@tabler/icons-react';
+import {IconRefresh} from '@tabler/icons-react';
 
 import defaultImage from "@/assets/menu-item-placeholder.webp";
 import '@/App.css';
 import {useMenuItems} from "@/features/menu-items/api/getMenuItems.ts";
-import {Link} from "react-router-dom";
 import {MenuItem} from "@/features/menu-items";
 import {DeleteMenuItem} from "@/features/menu-items/components/DeleteMenuItem.tsx";
 import {formatPrice} from "@/utils/format.ts";
+import {UpdateMenuItemBeta} from "@/features/menu-items/routes/UpdateMenuItemBeta.tsx";
+import {Menu} from "@/features/menus/types";
 
 type MantineAdminTableProps = {
     menuId: string;
+    menu: Menu;
 };
 
-const MenuItemList = ({menuId}: MantineAdminTableProps) => {
+const MenuItemList = ({menuId, menu}: MantineAdminTableProps) => {
         const columns = useMemo<MRT_ColumnDef<MenuItem>[]>(
             () => [
                 {
@@ -73,9 +75,7 @@ const MenuItemList = ({menuId}: MantineAdminTableProps) => {
                             <div className="flex space-x-2">
                                 <Tooltip label="Edit">
                                     <ActionIcon>
-                                        <Link to={`./${cell.getValue()}/`}>
-                                            <IconEdit/>
-                                        </Link>
+                                        <UpdateMenuItemBeta menuItemId={cell.row.original.id} menu={menu}/>
                                     </ActionIcon>
                                 </Tooltip>
                                 <Tooltip label="Delete">
@@ -153,7 +153,7 @@ const MenuItemList = ({menuId}: MantineAdminTableProps) => {
                     </ActionIcon>
                 </Tooltip>
             ),
-            rowCount: totalRowCount,
+            rowCount: Number(totalRowCount),
             state: {
                 columnFilterFns,
                 columnFilters,

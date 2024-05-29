@@ -3,14 +3,14 @@ import {Category} from '../types';
 import {ExtractFnReturnType, QueryConfig} from "@/lib/react-query.ts";
 import {useQuery} from '@tanstack/react-query';
 
-export const getCategories = ({menuId}: { menuId: number }): Promise<Category[]> => {
+export const getCategories = ({menuId}: { menuId: string }): Promise<Category[]> => {
     return axios.get(`/menus/${menuId}/categories/`);
 };
 
 type QueryFnType = typeof getCategories;
 
 type UseCategoriesOptions = {
-    menuId: number;
+    menuId: string;
     config?: QueryConfig<QueryFnType>;
 };
 

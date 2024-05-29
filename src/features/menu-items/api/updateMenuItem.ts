@@ -19,7 +19,7 @@ export type UpdateMenuItemDTO = {
 };
 
 export const updateMenuItem = ({data, menuItemId}: UpdateMenuItemDTO): Promise<MenuItem> => {
-    return axios.put(`/menu-items/${menuItemId}`, data);
+    return axios.put(`/menu-items/${menuItemId}/`, data);
 };
 
 type UseUpdateMenuItemOptions = {
@@ -51,6 +51,7 @@ export const useUpdateMenuItem = ({config}: UseUpdateMenuItemOptions = {}) => {
         },
         onSuccess: () => {
             queryClient.invalidateQueries({queryKey: ['menu-items']}).then(result => console.log(result));
+            queryClient.refetchQueries({queryKey: ['menu-items']}).then(r => console.log(r));
             addNotification({
                 type: 'success',
                 title: 'Menu Item Updated',
