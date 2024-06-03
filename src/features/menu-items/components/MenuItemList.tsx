@@ -38,6 +38,8 @@ const MenuItemList = ({menuId, menu}: MantineAdminTableProps) => {
                 {
                     header: 'Image',
                     accessorKey: 'image',
+                    enableColumnFilter: false,
+                    enableSorting: false,
                     Cell({cell}) {
                         // @ts-ignore
                         return <img className="fixed-size-image" src={cell.image || defaultImage} alt="Menu item"/>;
@@ -70,6 +72,8 @@ const MenuItemList = ({menuId, menu}: MantineAdminTableProps) => {
                 {
                     header: 'Actions',
                     accessorKey: 'id',
+                    enableColumnFilter: false,
+                    enableSorting: false,
                     Cell({cell}) {
                         return (
                             <div className="flex space-x-2">
