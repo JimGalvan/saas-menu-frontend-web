@@ -4,6 +4,7 @@ import {axios} from '@/lib/axios';
 import {QueryConfig} from '@/lib/react-query';
 
 import {MenuItem} from '../types';
+
 import type {
     MRT_ColumnFilterFnsState,
     MRT_ColumnFiltersState,
@@ -34,8 +35,12 @@ type UseMenuItemsOptions = CommonOptions & {
     config?: QueryConfig<QueryFnType>;
 };
 
-function getFetchURL(menuId: string) {
-    return new URL(`${API_URL}/menus/${menuId}/menu_items/?ordering=-createdAt`);
+const fieldMapping: { [key: string]: string } = {
+    categoryName: 'category__name',
+};
+
+function getFetchURL(menuId: string, defaultFilter: string = "?ordering=-createdAt"): URL {
+    return new URL(`${API_URL}/menus/${menuId}/menu_items/${defaultFilter}`);
 }
 
 export const getMenuItems = ({
@@ -44,7 +49,7 @@ export const getMenuItems = ({
                                  columnFilterFns,
                                  columnFilters,
                                  globalFilter,
-                                 sorting,
+                                 sorting = [],
                              }: Params): Promise<UseMenuItemsResponse> => {
 
     const fetchURL = getFetchURL(menuId);
@@ -58,6 +63,19 @@ export const getMenuItems = ({
     fetchURL.searchParams.set('filterModes', JSON.stringify(columnFilterFns ?? {}),);
     fetchURL.searchParams.set('globalFilter', globalFilter ?? '');
     fetchURL.searchParams.set('sorting', JSON.stringify(sorting ?? []));
+    fetchURL.searchParams.set('search', globalFilter ?? '');
+
+    if (sorting.length > 0) {
+        let sortField = sorting[0].id;
+        const sortOrder = sorting[0].desc ? '-' : '';
+
+        // Use the field mapping to convert the field name
+        if (sortField in fieldMapping) {
+            sortField = fieldMapping[sortField];
+        }
+
+        fetchURL.searchParams.set('ordering', `${sortOrder}${sortField}`);
+    }
 
     return axios.get(fetchURL.href);
 };
