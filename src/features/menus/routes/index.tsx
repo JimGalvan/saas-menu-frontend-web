@@ -1,11 +1,10 @@
 import {Navigate, Route, Routes} from 'react-router-dom';
-
-import {MenuItems} from './MenuItems.tsx';
+import Menus from '@/features/menus/routes/Menus';
 
 export const MenuItemsRoutes = () => {
     return (
         <Routes>
-            <Route path="" element={<MenuItems/>}/>
+            <Route path="" element={<Menus/>}/>
             <Route path="*" element={<Navigate to="."/>}/>
         </Routes>
     );

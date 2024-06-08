@@ -1,6 +1,6 @@
 import {Button, Spinner} from '@/components/Elements';
 
-import {useMenuItem} from '../api/getMenuItem';
+import {useMenuItem} from '../api/getMenuItem.ts';
 
 import {Menu} from "@/features/menus/types";
 import {useUpdateMenuItem} from "@/features/menu-items/api/updateMenuItem.ts";
@@ -9,6 +9,7 @@ import {CreateMenuItemDTO} from "@/features/menu-items/api/createMenuItem.ts";
 import {CategoryDropdown} from "@/features/categories/components/CategoryDropdown.tsx";
 import * as z from "zod";
 import {IconEdit} from "@tabler/icons-react";
+import {formatDate} from "@/utils/format.ts";
 
 type UpdateMenuItemProps = {
     menuItemId: string;
@@ -23,7 +24,7 @@ const schema = z.object({
 });
 
 
-export const UpdateMenuItemBeta = ({menu, menuItemId}: UpdateMenuItemProps) => {
+export const UpdateMenuItem = ({menu, menuItemId}: UpdateMenuItemProps) => {
 
     const menuItemQuery = useMenuItem({menuItemId});
     const updateMenuItemMutation = useUpdateMenuItem();
@@ -110,6 +111,12 @@ export const UpdateMenuItemBeta = ({menu, menuItemId}: UpdateMenuItemProps) => {
                             error={formState.errors['category']}
                             registration={register('category')}/>
                         <input type="hidden" {...register('menu')} value={menu.url}/>
+                        <p
+                            className="mt-2 text-xs font-bold">Created
+                            At: {formatDate(menuItemQuery.data.createdAt)}</p>
+                        <p
+                            className="mt-2 text-xs font-bold">Modified
+                            At: {formatDate(menuItemQuery.data.modifiedAt)}</p>
                     </>
                 )}
             </Form>

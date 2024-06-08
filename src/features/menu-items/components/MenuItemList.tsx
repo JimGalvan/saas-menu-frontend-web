@@ -17,7 +17,7 @@ import {useMenuItems} from "@/features/menu-items/api/getMenuItems.ts";
 import {MenuItem} from "@/features/menu-items";
 import {DeleteMenuItem} from "@/features/menu-items/components/DeleteMenuItem.tsx";
 import {formatPrice} from "@/utils/format.ts";
-import {UpdateMenuItemBeta} from "@/features/menu-items/routes/UpdateMenuItemBeta.tsx";
+import {UpdateMenuItem} from "@/features/menu-items/components/UpdateMenuItem.tsx";
 import {Menu} from "@/features/menus/types";
 
 type MantineAdminTableProps = {
@@ -79,7 +79,7 @@ const MenuItemList = ({menuId, menu}: MantineAdminTableProps) => {
                             <div className="flex space-x-2">
                                 <Tooltip label="Edit">
                                     <ActionIcon>
-                                        <UpdateMenuItemBeta menuItemId={cell.row.original.id} menu={menu}/>
+                                        <UpdateMenuItem menuItemId={cell.row.original.id} menu={menu}/>
                                     </ActionIcon>
                                 </Tooltip>
                                 <Tooltip label="Delete">

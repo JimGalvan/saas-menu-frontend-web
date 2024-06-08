@@ -3,11 +3,10 @@ import {useParams} from 'react-router-dom';
 import {Spinner} from '@/components/Elements';
 import {Head} from '@/components/Head';
 import {ContentLayout} from '@/components/Layout';
-import {formatDate} from '@/utils/format';
+import {formatDate, formatPrice} from '@/utils/format.ts';
 
 import {useMenuItem} from '../api/getMenuItem.ts';
 import defaultImage from '@/assets/menu-item-placeholder.webp';
-import {formatPrice} from '@/utils/format';
 
 export const MenuItem = () => {
     const {menuItemId} = useParams();

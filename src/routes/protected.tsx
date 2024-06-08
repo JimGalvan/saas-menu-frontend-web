@@ -4,7 +4,7 @@ import {Navigate, Outlet} from 'react-router-dom';
 import {Spinner} from '@/components/Elements';
 import {MainLayout} from '@/components/Layout';
 import {lazyImport} from '@/utils/lazyImport';
-import Menus from "@/features/menus/components/Menus.tsx";
+import MenusGrid from "@/features/menus/components/MenusGrid.tsx";
 
 const {MenuItemsRoutes} = lazyImport(
     () => import('@/features/menu-items'),
@@ -35,12 +35,8 @@ export const protectedRoutes = [
         path: '/app',
         element: <App/>,
         children: [
-            // {path: 'menu-items/*', element: <MenuItemsRoutes/>},
-            {path: 'menu/:menuId/menu-items/*', element: <MenuItemsRoutes/>,},
-            {path: 'menus/', element: <Menus/>,},
-            // {path: 'menu/*/menu-items', element: <MenuItemsRoutes/>},
-            // { path: 'menu/*', element: <Dashboard />},
-            // { path: 'users', element: <Users /> },
+            {path: 'menus/:menuId/menu-items/*', element: <MenuItemsRoutes/>,},
+            {path: 'menus/', element: <MenusGrid/>,},
             // { path: 'profile', element: <Profile /> },
             {path: '', element: <Dashboard/>},
             {path: '*', element: <Navigate to="."/>},
