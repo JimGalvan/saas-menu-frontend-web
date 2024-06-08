@@ -1,6 +1,6 @@
 import {useMenus} from "@/features/menus/api/getMenus.ts";
 import {Spinner} from "@/components/Elements";
-import {IconSettings} from '@tabler/icons-react';
+import {IconEdit} from '@tabler/icons-react';
 
 
 const Menus = () => {
@@ -34,7 +34,7 @@ const Menus = () => {
                                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3.5 rounded text-sm"> {/* Increased the padding */}
                                         Menu Items
                                     </button>
-                                    <IconSettings size={32}/>
+                                    <IconEdit size={32}/>
                                 </div>
                             </div>
                         </div>
