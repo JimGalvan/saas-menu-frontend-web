@@ -1,14 +1,8 @@
-import { Dialog, Menu, Transition } from '@headlessui/react';
-import {
-  UserIcon,
-  FolderIcon,
-  HomeIcon,
-  // UsersIcon,
-  MinusIcon,
-} from '@heroicons/react/24/solid';
+import {Dialog, Menu, Transition} from '@headlessui/react';
+import {FolderIcon, MinusIcon, UserIcon,} from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import * as React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 
 import logo from '/src/assets/logo.png';
 
@@ -21,10 +15,8 @@ type SideNavigationItem = {
 const SideNavigation = () => {
   // const { checkAccess } = useAuthorization();
   const navigation = [
-    { name: 'Dashboard', to: './menu-items', icon: HomeIcon },
-    { name: 'Menu Items', to: './menu-items', icon: FolderIcon },
+    { name: 'Menus', to: './menus', icon: FolderIcon },
     { name: 'Profile', to: './profile', icon: UserIcon },
-    { name: 'Settings', to: './settings', icon: UserIcon },
     // checkAccess({ allowedRoles: [ROLES.ADMIN] }) && {
     //   name: 'Users',
     //   to: './users',

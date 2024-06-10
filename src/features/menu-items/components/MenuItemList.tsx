@@ -13,12 +13,12 @@ import {IconRefresh} from '@tabler/icons-react';
 
 import defaultImage from "@/assets/menu-item-placeholder.webp";
 import '@/App.css';
-import {useMenuItems} from "@/features/menu-items/api/getMenuItems.ts";
 import {MenuItem} from "@/features/menu-items";
-import {DeleteMenuItem} from "@/features/menu-items/components/DeleteMenuItem.tsx";
 import {formatPrice} from "@/utils/format.ts";
 import {UpdateMenuItem} from "@/features/menu-items/components/UpdateMenuItem.tsx";
 import {Menu} from "@/features/menus/types";
+import {DeleteMenuItem} from "@/features/menu-items/components/DeleteMenuItem.tsx";
+import {useMenuItems} from "@/features/menu-items/api/getMenuItems.ts";
 
 type MantineAdminTableProps = {
     menuId: string;
@@ -26,7 +26,8 @@ type MantineAdminTableProps = {
 };
 
 const MenuItemList = ({menuId, menu}: MantineAdminTableProps) => {
-        const columns = useMemo<MRT_ColumnDef<MenuItem>[]>(
+
+    const columns = useMemo<MRT_ColumnDef<MenuItem>[]>(
             () => [
                 {
                     header: '#',
@@ -79,7 +80,7 @@ const MenuItemList = ({menuId, menu}: MantineAdminTableProps) => {
                             <div className="flex space-x-2">
                                 <Tooltip label="Edit">
                                     <ActionIcon>
-                                        <UpdateMenuItem menuItemId={cell.row.original.id} menu={menu}/>
+                                        <UpdateMenuItem menu={menu} menuItemId={cell.row.original.id}/>
                                     </ActionIcon>
                                 </Tooltip>
                                 <Tooltip label="Delete">
@@ -126,9 +127,6 @@ const MenuItemList = ({menuId, menu}: MantineAdminTableProps) => {
 
         const fetchedMenuItems = data?.results ?? [];
         const totalRowCount = data?.count ?? 0;
-
-        console.log("fetchedMenuItems: " + fetchedMenuItems)
-        console.log("totalRowCount: " + totalRowCount)
 
         const table = useMantineReactTable({
             columns,

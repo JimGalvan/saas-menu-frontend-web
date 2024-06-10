@@ -18,13 +18,8 @@ const Menus = () => {
     if (!menusQuery.data) return <QueryError message="Failed to load menus."/>;
 
     return (
-        <ContentLayout title="Menu Items">
-            <div className="flex justify-end">
-                {/*<CreateMenu/>*/}
-            </div>
-            <div className="mt-4">
+        <ContentLayout title="Menus">
                 <MenusGrid/>
-            </div>
         </ContentLayout>
     );
 };

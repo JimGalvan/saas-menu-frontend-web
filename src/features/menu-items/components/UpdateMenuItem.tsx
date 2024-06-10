@@ -8,8 +8,8 @@ import {Form, FormDrawer, InputField, TextAreaField} from "@/components/Form";
 import {CreateMenuItemDTO} from "@/features/menu-items/api/createMenuItem.ts";
 import {CategoryDropdown} from "@/features/categories/components/CategoryDropdown.tsx";
 import * as z from "zod";
-import {IconEdit} from "@tabler/icons-react";
 import {formatDate} from "@/utils/format.ts";
+import {IconEdit} from "@tabler/icons-react";
 
 type UpdateMenuItemProps = {
     menuItemId: string;
@@ -53,9 +53,7 @@ export const UpdateMenuItem = ({menu, menuItemId}: UpdateMenuItemProps) => {
         // <Authorization allowedRoles={[ROLES.ADMIN]}>
         <FormDrawer
             isDone={updateMenuItemMutation.isSuccess}
-            triggerButton={
-                <IconEdit/>
-            }
+            triggerButton={<IconEdit/>}
             title="Create Menu Item"
             submitButton={
                 <Button

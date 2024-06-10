@@ -1,6 +1,8 @@
 import {useMenus} from "@/features/menus/api/getMenus.ts";
-import {Spinner} from "@/components/Elements";
+import {Button, Spinner} from "@/components/Elements";
 import MenuCard from "@/features/menus/components/MenuCard.tsx";
+import {PlusIcon} from "@heroicons/react/20/solid";
+import {Link} from "react-router-dom";
 
 const MenusGrid = () => {
     const menusQuery = useMenus({});
@@ -19,14 +21,18 @@ const MenusGrid = () => {
     }
 
     return (
-        <div className="flex flex-col md:flex-row h-screen bg-gray-100">
-            <div className="w-full md:w-2/3 p-6 overflow-auto">
-                <h1 className="text-3xl font-bold mb-4">My Menus</h1>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {menusQuery.data.results.map((menu, index) => (
-                        <MenuCard key={index} menu={menu}/>
-                    ))}
-                </div>
+        <div className="w-full p-6 overflow-auto">
+            <div className="flex justify-end">
+                <Link to="./create">
+                    <Button size="sm" startIcon={<PlusIcon className="h-4 w-4"/>}>
+                        Create Menu
+                    </Button>
+                </Link>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-5">
+                {menusQuery.data.results.map((menu, index) => (
+                    <MenuCard key={index} menu={menu}/>
+                ))}
             </div>
         </div>
     );

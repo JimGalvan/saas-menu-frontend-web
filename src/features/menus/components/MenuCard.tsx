@@ -4,7 +4,7 @@ import { Menu } from "@/features/menus/types";
 
 const MenuCard = ({menu}: { menu: Menu }) => {
     return (
-        <div className="rounded overflow-hidden shadow-lg cursor-pointer">
+        <div className="w-full rounded overflow-hidden shadow-lg">
             <img className="w-full h-48 object-cover" src="/src/assets/logo-placeholder.png" alt="Logo Placeholder"/>
             <div className="px-6 py-4">
                 <div className="font-bold text-2xl mb-2">{menu.title}</div>

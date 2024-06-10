@@ -8,3 +8,11 @@ export type Menu = {
     categories: string[];
 } & BaseEntity;
 
+export type CreateMenuDTO = {
+    data: {
+        title: string;
+        description: string;
+        isActive: boolean;
+        logo: File | null;
+    }
+};
